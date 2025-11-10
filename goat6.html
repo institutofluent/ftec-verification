@@ -23,6 +23,7 @@
       touch-action: none;  
       -ms-touch-action: none;  
       overscroll-behavior: none;  
+      padding-bottom: 380px; /* espaço para não cobrir o texto */  
     }  
 
     @media (min-width: 1025px) {  
@@ -30,6 +31,13 @@
         overflow-y: auto;  
         overflow-x: hidden;  
         touch-action: auto;  
+        padding-bottom: 380px; /* mantém o espaço no desktop */  
+      }  
+    }  
+
+    @media (max-width: 600px) {  
+      body {  
+        padding-bottom: 160px; /* espaço menor para telas pequenas */  
       }  
     }  
 
