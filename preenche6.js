@@ -1,6 +1,6 @@
 // preenche.js
 document.addEventListener('DOMContentLoaded', function () {
-  fetch('dados5.html')
+  fetch('dados6.html')
     .then(resp => resp.text())
     .then(text => {
       let dados = null;
