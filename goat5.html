@@ -3,7 +3,7 @@
 <head>  
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">  
-  <title></title>  
+  <title>Certificado FTEC</title>  
   <style>  
     html, body {  
       width: 100vw;  
@@ -136,24 +136,27 @@
       }  
     }  
 
-    /* botão WhatsApp */  
-    .whatsapp-btn {  
+    /* botão Baixar Certificado */  
+    .download-btn {  
       position: fixed;  
       bottom: 20px;  
       right: 20px;  
       display: flex;  
       align-items: center;  
       justify-content: space-between;  
-      background: rgba(0, 0, 0, 0.6);  
+      background: #28a745; /* Verde para ação positiva */  
       border-radius: 50px;  
-      padding: 15px 20px;  
+      padding: 15px 25px;  
       text-decoration: none;  
       z-index: 2001;  
-      transition: background 0.3s ease;  
+      transition: all 0.3s ease;  
       font-family: Arial, sans-serif;  
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  
+      border: none;  
+      cursor: pointer;  
     }  
 
-    .whatsapp-btn span {  
+    .download-btn span {  
       color: white;  
       font-size: 20px;  
       font-weight: bold;  
@@ -161,26 +164,36 @@
       white-space: nowrap;  
     }  
 
-    .whatsapp-btn img {  
-      width: 40px;  
-      height: 40px;  
+    .download-btn img {  
+      width: 32px;  
+      height: 32px;  
+      filter: brightness(0) invert(1); /* Ícone branco */  
     }  
 
-    .whatsapp-btn:hover {  
-      background: rgba(0, 0, 0, 0.8);  
+    .download-btn:hover {  
+      background: #218838; /* Verde mais escuro no hover */  
+      transform: translateY(-2px);  
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);  
+    }  
+
+    .download-btn:active {  
+      transform: translateY(0);  
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  
     }  
 
     @media (max-width: 600px) {  
-      .whatsapp-btn {  
-        padding: 10px 14px;  
+      .download-btn {  
+        padding: 12px 18px;  
         border-radius: 40px;  
+        bottom: 15px;  
+        right: 15px;  
       }  
-      .whatsapp-btn span {  
+      .download-btn span {  
         font-size: 16px;  
       }  
-      .whatsapp-btn img {  
-        width: 32px;  
-        height: 32px;  
+      .download-btn img {  
+        width: 24px;  
+        height: 24px;  
       }  
     }  
   </style>  
@@ -210,7 +223,7 @@
 
   <!-- aviso acima da faixa inferior -->  
   <div class="aviso">  
-    Caso acredite que as informações emitidas não coincidem, entre em contato conosco pelo Whatsapp  
+    Para baixar seu certificado em PDF, clique no botão abaixo  
   </div>  
 
   <!-- nova faixa roxa colada em cima -->
@@ -219,13 +232,36 @@
   <!-- faixa roxa inferior -->  
   <div class="faixa-baixo"></div>  
 
-  <!-- botão WhatsApp -->  
-  <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">  
-    <span>Fale Conosco:</span>  
-    <img src="whatsapp.png" alt="WhatsApp">  
-  </a>  
+  <!-- botão Baixar Certificado -->  
+  <button id="downloadBtn" class="download-btn">  
+    <span>Baixar Certificado</span>  
+    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDEyIDRNMTIgNEwxNSA3TTEyIDRMOSA3TTUgMTRWNThIMTlWMTQiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Ícone Download">  
+  </button>  
 
   <!-- script que vai preencher os dados -->  
   <script src="preenche5.js"></script>  
+
+  <!-- script para download do PDF -->  
+  <script>  
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      // Aqui você precisa substituir pela URL real do seu PDF
+      const pdfUrl = 'URL_DO_SEU_PDF_AQUI.pdf';
+      
+      // Alternativa 1: Abrir em nova aba (simples)
+      // window.open(pdfUrl, '_blank');
+      
+      // Alternativa 2: Forçar download (recomendado)
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = 'certificado_' + document.getElementById('aluno').textContent + '.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Alternativa 3: Se quiser um nome dinâmico baseado no aluno
+      // const nomeAluno = document.getElementById('aluno').textContent || 'certificado';
+      // link.download = nomeAluno.replace(/\s+/g, '_') + '_certificado.pdf';
+    });
+  </script>  
 </body>  
-</html>
+  </html>
