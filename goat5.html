@@ -244,24 +244,17 @@
   <!-- script para download do PDF -->  
   <script>  
     document.getElementById('downloadBtn').addEventListener('click', function() {
-      // Aqui você precisa substituir pela URL real do seu PDF
-      const pdfUrl = 'URL_DO_SEU_PDF_AQUI.pdf';
+      // Nome do arquivo PDF que está na mesma pasta
+      const pdfUrl = 'certificado.pdf';
       
-      // Alternativa 1: Abrir em nova aba (simples)
-      // window.open(pdfUrl, '_blank');
-      
-      // Alternativa 2: Forçar download (recomendado)
+      // Método simples que funciona
       const link = document.createElement('a');
       link.href = pdfUrl;
-      link.download = 'certificado_' + document.getElementById('aluno').textContent + '.pdf';
+      link.download = 'certificado_ftec.pdf'; // Nome que aparecerá ao baixar
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
-      // Alternativa 3: Se quiser um nome dinâmico baseado no aluno
-      // const nomeAluno = document.getElementById('aluno').textContent || 'certificado';
-      // link.download = nomeAluno.replace(/\s+/g, '_') + '_certificado.pdf';
     });
   </script>  
 </body>  
-  </html>
+</html>
