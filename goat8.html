@@ -111,6 +111,43 @@
       }  
     }  
 
+    /* botão de download PDF */  
+    .download-btn {  
+      display: block;  
+      width: 300px;  
+      margin: 30px auto;  
+      padding: 15px 30px;  
+      background-color: #7551B4;  
+      color: white;  
+      text-align: center;  
+      text-decoration: none;  
+      font-size: 18px;  
+      font-weight: bold;  
+      border-radius: 8px;  
+      border: none;  
+      cursor: pointer;  
+      transition: background-color 0.3s ease, transform 0.2s ease;  
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    }  
+
+    .download-btn:hover {  
+      background-color: #5a3e8c;  
+      transform: translateY(-2px);  
+    }  
+
+    .download-btn:active {  
+      transform: translateY(0);  
+    }  
+
+    @media (max-width: 600px) {  
+      .download-btn {  
+        width: 250px;  
+        padding: 12px 24px;  
+        font-size: 16px;  
+        margin: 20px auto;  
+      }  
+    }  
+
     /* faixa inferior */  
     .faixa-baixo {  
       width: 100%;  
@@ -221,6 +258,10 @@
     Caso acredite que as informações emitidas não coincidem, entre em contato conosco pelo Whatsapp  
   </div>  
 
+  <!-- Botão de Download PDF -->  
+  <a href="documento.pdf" download class="download-btn">  
+    BAIXAR PDF  
+  </a>  
 
   <!-- faixa roxa inferior -->  
   <div class="faixa-baixo"></div>  
@@ -234,4 +275,4 @@
   <!-- script que vai preencher os dados -->  
   <script src="preenche7.js"></script>  
 </body>  
-  </html>
+</html>
