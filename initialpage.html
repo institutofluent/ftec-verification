@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso FTEC - Sistema de Verificação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            transform: translateZ(30px);
+        }
+
+        .logo {
+            height: 80px;
+            filter: drop-shadow(0 5px 10px rgba(106, 17, 203, 0.3));
+            transition: transform 0.5s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .input-container {
+            margin-bottom: 30px;
+            transform: translateZ(20px);
+        }
+
+        .input-label {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .code-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .code-input {
+            width: 70px;
+            height: 80px;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            background: #f8f9fa;
+            color: #333;
+            transition: all 0.3s;
+            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2), inset 0 4px 6px rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .code-input.filled {
+            border-color: #2575fc;
+            background: #f0f7ff;
+        }
+
+        .hint {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 40px;
+            transform: translateZ(20px);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(106, 17, 203, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff4757;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: rgba(255, 71, 87, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #ff4757;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .success-message {
+            color: #2ed573;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: rgba(46, 213, 115, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #2ed573;
+        }
+
+        .success-message.show {
+            opacity: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float-particle 20s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px;
+            }
+            
+            .code-input {
+                width: 60px;
+                height: 70px;
+                font-size: 32px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .submit-btn {
+                padding: 16px 30px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .code-inputs {
+                gap: 10px;
+            }
+            
+            .code-input {
+                width: 50px;
+                height: 60px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="logo-container">
+                <img src="ftec.png" alt="FTEC Logo" class="logo">
+            </div>
+            
+            <h1 class="title">Sistema de Verificação</h1>
+            <p class="subtitle">Digite o código de 4 dígitos para acessar seu documento</p>
+            
+            <div class="input-container">
+                <label class="input-label">Código de Acesso</label>
+                <div class="code-inputs">
+                    <input type="text" class="code-input" maxlength="1" data-index="0" inputmode="numeric">
+                    <input type="text" class="code-input" maxlength="1" data-index="1" inputmode="numeric">
+                    <input type="text" class="code-input" maxlength="1" data-index="2" inputmode="numeric">
+                    <input type="text" class="code-input" maxlength="1" data-index="3" inputmode="numeric">
+                </div>
+                <p class="hint">Use os dígitos numéricos (0-9)</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i> Código inválido. Verifique e tente novamente.
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> Código verificado! Redirecionando...
+            </div>
+            
+            <div class="button-container">
+                <button class="submit-btn" id="submitBtn" disabled>
+                    <span>ACESSAR DOCUMENTO</span>
+                    <div class="loading" id="loadingSpinner"></div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            FTEC © 2023 - Todos os direitos reservados
+        </div>
+    </div>
+
+    <script>
+        // Configuração dos redirecionamentos
+        // Formato: código: "pagina.html"
+        const redirectMap = {
+            "1234": "pagina1.html",
+            "5678": "pagina2.html",
+            "0000": "documento.pdf", // Exemplo de PDF
+            "9999": "certificado.html",
+            // Adicione mais códigos conforme necessário
+            // "CODIGO": "nome-da-pagina.html"
+        };
+
+        // Elementos DOM
+        const codeInputs = document.querySelectorAll('.code-input');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const particlesContainer = document.getElementById('particles');
+
+        // Criar partículas de fundo
+        function createParticles() {
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamanho aleatório
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição inicial aleatória
+                particle.style.left = `${Math.random() * 100}%`;
+                
+                // Atraso e duração da animação
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 15;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Opacidade aleatória
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Função para verificar se todos os campos estão preenchidos
+        function checkAllFieldsFilled() {
+            let allFilled = true;
+            
+            codeInputs.forEach(input => {
+                if (input.value === '') {
+                    allFilled = false;
+                } else {
+                    input.classList.add('filled');
+                }
+            });
+            
+            submitBtn.disabled = !allFilled;
+        }
+
+        // Função para obter o código completo
+        function getFullCode() {
+            let code = '';
+            codeInputs.forEach(input => {
+                code += input.value;
+            });
+            return code;
+        }
+
+        // Função para processar o código
+        function processCode() {
+            const code = getFullCode();
+            
+            // Mostrar loading
+            submitBtn.innerHTML = '<div class="loading" id="loadingSpinner"></div>';
+            loadingSpinner.style.display = 'block';
+            submitBtn.disabled = true;
+            
+            // Simular delay de processamento
+            setTimeout(() => {
+                // Verificar se o código existe no mapa de redirecionamento
+                if (redirectMap[code]) {
+                    // Mostrar mensagem de sucesso
+                    errorMessage.classList.remove('show');
+                    successMessage.classList.add('show');
+                    
+                    // Redirecionar após um breve delay
+                    setTimeout(() => {
+                        window.location.href = redirectMap[code];
+                    }, 1500);
+                } else {
+                    // Mostrar mensagem de erro
+                    successMessage.classList.remove('show');
+                    errorMessage.classList.add('show');
+                    
+                    // Resetar botão
+                    resetButton();
+                    
+                    // Dar shake nos inputs
+                    codeInputs.forEach(input => {
+                        input.classList.add('error');
+                        setTimeout(() => {
+                            input.classList.remove('error');
+                        }, 500);
+                    });
+                }
+            }, 1000);
+        }
+
+        // Resetar botão para estado inicial
+        function resetButton() {
+            submitBtn.innerHTML = '<span>ACESSAR DOCUMENTO</span><div class="loading" id="loadingSpinner"></div>';
+            loadingSpinner.style.display = 'none';
+            checkAllFieldsFilled();
+        }
+
+        // Event Listeners para os inputs
+        codeInputs.forEach((input, index) => {
+            // Focar no próximo input quando digitar
+            input.addEventListener('input', (e) => {
+                // Permitir apenas números
+                input.value = input.value.replace(/[^0-9]/g, '');
+                
+                // Remover classe de erro se houver
+                errorMessage.classList.remove('show');
+                
+                // Adicionar classe filled se tiver valor
+                if (input.value !== '') {
+                    input.classList.add('filled');
+                    
+                    // Ir para o próximo input se houver
+                    if (index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    }
+                } else {
+                    input.classList.remove('filled');
+                }
+                
+                checkAllFieldsFilled();
+            });
+            
+            // Permitir navegação com setas e backspace
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                    // Voltar para o input anterior ao apagar
+                    codeInputs[index - 1].focus();
+                } else if (e.key === 'ArrowLeft' && index > 0) {
+                    // Mover para a esquerda com seta
+                    codeInputs[index - 1].focus();
+                } else if (e.key === 'ArrowRight' && index < codeInputs.length - 1) {
+                    // Mover para a direita com seta
+                    codeInputs[index + 1].focus();
+                } else if (e.key === 'Enter' && !submitBtn.disabled) {
+                    // Submeter com Enter
+                    processCode();
+                }
+            });
+            
+            // Colar código completo (4 dígitos)
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').trim();
+                
+                // Verificar se tem exatamente 4 dígitos
+                if (/^\d{4}$/.test(pastedData)) {
+                    // Preencher todos os inputs
+                    for (let i = 0; i < 4; i++) {
+                        codeInputs[i].value = pastedData[i];
+                        codeInputs[i].classList.add('filled');
+                        
+                        // Focar no último input
+                        if (i === 3) {
+                            codeInputs[i].focus();
+                        }
+                    }
+                    
+                    checkAllFieldsFilled();
+                }
+            });
+        });
+
+        // Event listener para o botão de submit
+        submitBtn.addEventListener('click', processCode);
+
+        // Inicializar partículas
+        createParticles();
+
+        // Focar no primeiro input ao carregar a página
+        window.addEventListener('load', () => {
+            codeInputs[0].focus();
+            
+            // Adicionar efeito de digitação inicial
+            setTimeout(() => {
+                codeInputs[0].focus();
+            }, 500);
+        });
+
+        // Efeito de digitação automática para demonstração (opcional)
+        // Descomente se quiser mostrar um exemplo de código automaticamente
+        /*
+        setTimeout(() => {
+            const demoCode = "1234"; // Código de exemplo
+            let i = 0;
+            
+            const typeEffect = setInterval(() => {
+                if (i < demoCode.length) {
+                    codeInputs[i].value = demoCode[i];
+                    codeInputs[i].classList.add('filled');
+                    codeInputs[i].focus();
+                    i++;
+                    
+                    if (i === demoCode.length) {
+                        checkAllFieldsFilled();
+                        clearInterval(typeEffect);
+                    }
+                }
+            }, 200);
+        }, 1000);
+        */
+    </script>
+</body>
+</html>
