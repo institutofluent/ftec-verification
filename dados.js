@@ -1,9 +1,3 @@
-// ==============================================
-// ARQUIVO ÚNICO DE CONFIGURAÇÃO DE DADOS
-// ==============================================
-
-// CONFIGURAÇÃO DOS DADOS POR PÁGINA
-// Formato: "nome-da-pagina.html": { dados }
 const dadosPorPagina = {
     // ============ EXEMPLOS ============
     
