@@ -23,7 +23,7 @@
       touch-action: none;  
       -ms-touch-action: none;  
       overscroll-behavior: none;  
-      padding-bottom: 700px; /* corrigido: 680px (2 faixas) + folga */  
+      padding-bottom: 700px;  
     }  
 
     @media (min-width: 1025px) {  
@@ -37,7 +37,7 @@
 
     @media (max-width: 600px) {  
       body {  
-        padding-bottom: 300px; /* corrigido: 280px (2 faixas mobile) + folga */  
+        padding-bottom: 300px;  
       }  
     }  
 
@@ -111,11 +111,19 @@
       }  
     }  
 
-    /* botão de download PDF */  
+    /* container dos botões */  
+    .botoes-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin: 30px auto;
+    }
+    
+    /* botões de download PDF */  
     .download-btn {  
       display: block;  
       width: 300px;  
-      margin: 30px auto;  
       padding: 15px 30px;  
       background-color: #7551B4;  
       color: white;  
@@ -144,7 +152,6 @@
         width: 250px;  
         padding: 12px 24px;  
         font-size: 16px;  
-        margin: 20px auto;  
       }  
     }  
 
@@ -257,10 +264,18 @@
     Caso acredite que as informações emitidas não coincidem, entre em contato conosco pelo Whatsapp  
   </div>  
 
-  <!-- Botão de Download PDF (agora baixa 2 arquivos) -->  
-  <a href="#" onclick="baixarDoisPDFs(); return false;" class="download-btn">  
-    BAIXAR CERTIFICADO  
-  </a>  
+  <!-- Container com dois botões de download -->
+  <div class="botoes-container">
+    <!-- Botão do primeiro PDF -->
+    <a href="Raimundo.pdf" download class="download-btn">  
+      BAIXAR CERTIFICADO
+    </a>
+    
+    <!-- Botão do segundo PDF -->
+    <a href="Raimundo2.pdf" download class="download-btn">  
+      BAIXAR HISTÓRICO
+    </a>
+  </div>
 
   <!-- faixa roxa inferior -->  
   <div class="faixa-baixo"></div>  
@@ -272,26 +287,6 @@
   </a>  
 
   <!-- script que vai preencher os dados -->  
-  <script src="preenche15.js"></script>
-  
-  <!-- Script para baixar dois PDFs -->
-  <script>
-    function baixarDoisPDFs() {
-      // Cria links temporários para baixar os dois arquivos
-      const link1 = document.createElement('a');
-      link1.href = 'Raimundo.pdf';
-      link1.download = 'Raimundo.pdf';
-      document.body.appendChild(link1);
-      link1.click();
-      document.body.removeChild(link1);
-      
-      const link2 = document.createElement('a');
-      link2.href = 'Raimundo2.pdf';
-      link2.download = 'Raimundo2.pdf';
-      document.body.appendChild(link2);
-      link2.click();
-      document.body.removeChild(link2);
-    }
-  </script>
+  <script src="preenche15.js"></script>  
 </body>  
 </html>
