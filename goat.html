@@ -3,7 +3,7 @@
 <head>  
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">  
-  <title></title>  
+  <title>Certificado FTEC</title>  
   <style>  
     html, body {  
       width: 100vw;  
@@ -183,6 +183,46 @@
         height: 32px;  
       }  
     }  
+
+    /* ---- BOTÃO BAIXAR CERTIFICADO ---- */  
+    .btn-baixar {  
+      position: fixed;  
+      bottom: 100px; /* ajuste para não sobrepor o WhatsApp */  
+      left: 50%;  
+      transform: translateX(-50%);  
+      background: #7551B4;  
+      color: white;  
+      font-size: 18px;  
+      font-weight: bold;  
+      padding: 12px 28px;  
+      border: none;  
+      border-radius: 40px;  
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);  
+      cursor: pointer;  
+      z-index: 2000;  
+      transition: background 0.2s ease, transform 0.1s ease;  
+      font-family: Arial, sans-serif;  
+      letter-spacing: 0.5px;  
+    }  
+
+    .btn-baixar:hover {  
+      background: #5f3f99;  
+    }  
+
+    .btn-baixar:active {  
+      transform: translateX(-50%) scale(0.95);  
+    }  
+
+    @media (max-width: 600px) {  
+      .btn-baixar {  
+        font-size: 14px;  
+        padding: 10px 20px;  
+        bottom: 70px;  
+        width: 80%;  
+        max-width: 280px;  
+        text-align: center;  
+      }  
+    }  
   </style>  
 </head>  
 <body>  
@@ -225,7 +265,34 @@
     <img src="whatsapp.png" alt="WhatsApp">  
   </a>  
 
-  <!-- script que vai preencher os dados -->  
+  <!-- NOVO BOTÃO BAIXAR CERTIFICADO -->  
+  <button class="btn-baixar" id="baixarBtn">⬇ Baixar Certificado</button>  
+
+  <!-- script que vai preencher os dados e configurar o download -->  
   <script src="preenche.js"></script>  
+  <script>  
+    (function() {  
+      const btn = document.getElementById('baixarBtn');  
+
+      // Função para baixar o PDF (arquivo: certificado.pdf)  
+      function baixarCertificado() {  
+        // Cria um link temporário para o PDF  
+        const link = document.createElement('a');  
+        link.href = 'JoaoAlfredo.pdf';  
+        link.download = 'JoaoAlfredo.pdf'; // nome do arquivo baixado  
+        document.body.appendChild(link);  
+        link.click();  
+        document.body.removeChild(link);  
+      }  
+
+      // Atribui o evento de clique ao botão  
+      if (btn) {  
+        btn.addEventListener('click', baixarCertificado);  
+      }  
+
+      // Fallback: se o preenche.js carregar depois, não interfere.  
+      console.log('Botão Baixar Certificado pronto.');  
+    })();  
+  </script>  
 </body>  
 </html>
