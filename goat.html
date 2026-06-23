@@ -3,11 +3,11 @@
 <head>  
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">  
-  <title>Certificado FTEC</title>  
+  <title></title>  
   <style>  
     html, body {  
       width: 100vw;  
-      height: 100vh;  
+      min-height: 100vh;  
       margin: 0;  
       padding: 0;  
       background: #fff;  
@@ -19,18 +19,8 @@
     }  
 
     body {  
-      overflow: hidden;  
-      touch-action: none;  
-      -ms-touch-action: none;  
-      overscroll-behavior: none;  
-    }  
-
-    @media (min-width: 1025px) {  
-      body {  
-        overflow-y: auto;  
-        overflow-x: hidden;  
-        touch-action: auto;  
-      }  
+      overflow-x: hidden;  
+      padding-bottom: 80px;  
     }  
 
     /* faixa roxa no topo */  
@@ -103,39 +93,6 @@
       }  
     }  
 
-    /* faixa inferior */  
-    .faixa-baixo {  
-      width: 100%;  
-      height: 340px;  
-      background-color: #7551B4;  
-      position: fixed;  
-      bottom: 0;  
-      left: 0;  
-    }  
-
-    @media (max-width: 600px) {  
-      .faixa-baixo {  
-        height: 140px;  
-      }  
-    }  
-
-    /* nova faixa roxa colada em cima da inferior */  
-    .faixa-baixo-top {  
-      width: 100%;  
-      height: 340px;  
-      background-color: #7551B4;  
-      position: fixed;  
-      bottom: 340px;  
-      left: 0;  
-    }  
-
-    @media (max-width: 600px) {  
-      .faixa-baixo-top {  
-        height: 140px;  
-        bottom: 140px;  
-      }  
-    }  
-
     /* botão WhatsApp */  
     .whatsapp-btn {  
       position: fixed;  
@@ -184,43 +141,32 @@
       }  
     }  
 
-    /* ---- BOTÃO BAIXAR CERTIFICADO ---- */  
+    /* Botão Baixar Certificado */  
     .btn-baixar {  
-      position: fixed;  
-      bottom: 100px; /* ajuste para não sobrepor o WhatsApp */  
-      left: 50%;  
-      transform: translateX(-50%);  
+      display: block;  
+      margin: 20px auto 30px;  
       background: #7551B4;  
       color: white;  
       font-size: 18px;  
       font-weight: bold;  
-      padding: 12px 28px;  
+      padding: 14px 40px;  
       border: none;  
       border-radius: 40px;  
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);  
       cursor: pointer;  
-      z-index: 2000;  
-      transition: background 0.2s ease, transform 0.1s ease;  
       font-family: Arial, sans-serif;  
-      letter-spacing: 0.5px;  
+      transition: background 0.2s;  
     }  
 
     .btn-baixar:hover {  
       background: #5f3f99;  
     }  
 
-    .btn-baixar:active {  
-      transform: translateX(-50%) scale(0.95);  
-    }  
-
     @media (max-width: 600px) {  
       .btn-baixar {  
-        font-size: 14px;  
-        padding: 10px 20px;  
-        bottom: 70px;  
-        width: 80%;  
-        max-width: 280px;  
-        text-align: center;  
+        font-size: 16px;  
+        padding: 12px 30px;  
+        margin: 15px auto 20px;  
       }  
     }  
   </style>  
@@ -248,16 +194,13 @@
     CURSO: <span id="curso"></span>  
   </div>  
 
-  <!-- aviso acima da faixa inferior -->  
+  <!-- Botão Baixar Certificado -->  
+  <button class="btn-baixar" onclick="window.location.href='certificado.pdf'">⬇ Baixar Certificado</button>  
+
+  <!-- aviso acima do rodapé -->  
   <div class="aviso">  
     Caso acredite que as informações emitidas não coincidem, entre em contato conosco pelo Whatsapp  
   </div>  
-
-  <!-- nova faixa roxa colada em cima -->
-  <div class="faixa-baixo-top"></div>
-
-  <!-- faixa roxa inferior -->  
-  <div class="faixa-baixo"></div>  
 
   <!-- botão WhatsApp -->  
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">  
@@ -265,34 +208,6 @@
     <img src="whatsapp.png" alt="WhatsApp">  
   </a>  
 
-  <!-- NOVO BOTÃO BAIXAR CERTIFICADO -->  
-  <button class="btn-baixar" id="baixarBtn">⬇ Baixar Certificado</button>  
-
-  <!-- script que vai preencher os dados e configurar o download -->  
   <script src="preenche.js"></script>  
-  <script>  
-    (function() {  
-      const btn = document.getElementById('baixarBtn');  
-
-      // Função para baixar o PDF (arquivo: certificado.pdf)  
-      function baixarCertificado() {  
-        // Cria um link temporário para o PDF  
-        const link = document.createElement('a');  
-        link.href = 'JoaoAlfredo.pdf';  
-        link.download = 'JoaoAlfredo.pdf'; // nome do arquivo baixado  
-        document.body.appendChild(link);  
-        link.click();  
-        document.body.removeChild(link);  
-      }  
-
-      // Atribui o evento de clique ao botão  
-      if (btn) {  
-        btn.addEventListener('click', baixarCertificado);  
-      }  
-
-      // Fallback: se o preenche.js carregar depois, não interfere.  
-      console.log('Botão Baixar Certificado pronto.');  
-    })();  
-  </script>  
 </body>  
 </html>
