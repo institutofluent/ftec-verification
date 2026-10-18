@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificação de Aluno</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #7551B4;  /* fundo roxo */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .caixa {
+      background: white;          
+      padding: 60px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    h2 {
+      font-size: 42px;
+      margin-bottom: 40px;
+    }
+
+    input {
+      padding: 28px;
+      font-size: 28px;
+      width: 100%;
+      margin-bottom: 25px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #7551B4;  /* botão roxo */
+      color: white;
+      border: none;
+      padding: 30px;
+      width: 100%;
+      font-size: 30px;
+      cursor: pointer;
+      border-radius: 70px;
+    }
+
+    button:hover {
+      background-color: #5e4090;  /* roxo mais escuro no hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="caixa">
+    <h2>Verificação</h2>
+    <input type="text" id="codigo" placeholder="Digite o código" maxlength="30">
+    <button onclick="verificar()">Verificar</button>
+  </div>
+
+  <script>
+    const alunos = {
+      "CTL202510114510": "goat3.html"
+    };
+
+    window.addEventListener("load", () => {
+      document.getElementById("codigo").value = "CTL202510114510";
+    });
+
+    function verificar() {
+      const codigo = document.getElementById("codigo").value.trim();
+
+      if (alunos[codigo]) {
+        window.location.href = alunos[codigo];
+      } else {
+        alert("Código inválido!");
+      }
+    }
+  </script>
+</body>
+</html>

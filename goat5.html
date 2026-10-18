@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-BR">  
+<head>  
+  <meta charset="utf-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">  
+  <title>Certificado FTEC</title>  
+  <style>  
+    html, body {  
+      width: 100vw;  
+      height: 100vh;  
+      margin: 0;  
+      padding: 0;  
+      background: #fff;  
+      -webkit-user-select: none;  
+      user-select: none;  
+      -webkit-text-size-adjust: 100%;  
+      text-size-adjust: 100%;  
+      font-family: Arial, sans-serif;  
+    }  
+
+    body {  
+      overflow: hidden;  
+      touch-action: none;  
+      -ms-touch-action: none;  
+      overscroll-behavior: none;  
+    }  
+
+    @media (min-width: 1025px) {  
+      body {  
+        overflow-y: auto;  
+        overflow-x: hidden;  
+        touch-action: auto;  
+      }  
+    }  
+
+    /* faixa roxa no topo */  
+    .faixa-topo {  
+      width: 100%;  
+      height: 170px;  
+      background-color: #7551B4;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+    }  
+
+    .faixa-topo img {  
+      max-height: 170%;  
+      height: auto;  
+    }  
+
+    @media (max-width: 600px) {  
+      .faixa-topo {  
+        height: 70px;  
+      }  
+    }  
+
+    /* texto abaixo da faixa */  
+    .texto-abaixo-topo {  
+      margin-top: 20px;  
+      text-align: center;  
+      color: #666;  
+      font-weight: 300;  
+      font-size: 22px;  
+    }  
+
+    @media (max-width: 600px) {  
+      .texto-abaixo-topo {  
+        margin-top: 12px;  
+        font-size: 16px;  
+      }  
+    }  
+
+    /* bloco dos rótulos */  
+    .rotulos {  
+      margin-top: 30px;  
+      margin-left: 20px;  
+      color: #333;  
+      font-size: 18px;  
+      line-height: 1.8;  
+      font-weight: bold;  
+    }  
+
+    @media (max-width: 600px) {  
+      .rotulos {  
+        font-size: 14px;  
+        margin-left: 12px;  
+        margin-top: 20px;  
+      }  
+    }  
+
+    /* aviso acima do rodapé */  
+    .aviso {  
+      text-align: center;  
+      margin: 20px;   
+      color: #000;  
+      font-size: 14px;  
+      font-weight: 300;  
+    }  
+
+    @media (max-width: 600px) {  
+      .aviso {  
+        font-size: 12px;  
+      }  
+    }  
+
+    /* faixa inferior */  
+    .faixa-baixo {  
+      width: 100%;  
+      height: 340px;  
+      background-color: #7551B4;  
+      position: fixed;  
+      bottom: 0;  
+      left: 0;  
+    }  
+
+    @media (max-width: 600px) {  
+      .faixa-baixo {  
+        height: 140px;  
+      }  
+    }  
+
+    /* nova faixa roxa colada em cima da inferior */  
+    .faixa-baixo-top {  
+      width: 100%;  
+      height: 340px;  
+      background-color: #7551B4;  
+      position: fixed;  
+      bottom: 340px;  
+      left: 0;  
+    }  
+
+    @media (max-width: 600px) {  
+      .faixa-baixo-top {  
+        height: 140px;  
+        bottom: 140px;  
+      }  
+    }  
+
+    /* botão Baixar Certificado */  
+    .download-btn {  
+      position: fixed;  
+      bottom: 20px;  
+      right: 20px;  
+      display: flex;  
+      align-items: center;  
+      justify-content: space-between;  
+      background: #28a745; /* Verde para ação positiva */  
+      border-radius: 50px;  
+      padding: 15px 25px;  
+      text-decoration: none;  
+      z-index: 2001;  
+      transition: all 0.3s ease;  
+      font-family: Arial, sans-serif;  
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  
+      border: none;  
+      cursor: pointer;  
+    }  
+
+    .download-btn span {  
+      color: white;  
+      font-size: 20px;  
+      font-weight: bold;  
+      margin-right: 12px;  
+      white-space: nowrap;  
+    }  
+
+    .download-btn img {  
+      width: 32px;  
+      height: 32px;  
+      filter: brightness(0) invert(1); /* Ícone branco */  
+    }  
+
+    .download-btn:hover {  
+      background: #218838; /* Verde mais escuro no hover */  
+      transform: translateY(-2px);  
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);  
+    }  
+
+    .download-btn:active {  
+      transform: translateY(0);  
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  
+    }  
+
+    @media (max-width: 600px) {  
+      .download-btn {  
+        padding: 12px 18px;  
+        border-radius: 40px;  
+        bottom: 15px;  
+        right: 15px;  
+      }  
+      .download-btn span {  
+        font-size: 16px;  
+      }  
+      .download-btn img {  
+        width: 24px;  
+        height: 24px;  
+      }  
+    }  
+  </style>  
+</head>  
+<body>  
+  <!-- faixa roxa com logo centralizado -->  
+  <div class="faixa-topo">  
+    <img src="ftec.png" alt="Logo FTEC">  
+  </div>  
+
+  <!-- texto abaixo da faixa -->  
+  <div class="texto-abaixo-topo">Código MEC Nº 21811</div>  
+
+  <!-- rótulos alinhados à esquerda -->  
+  <div class="rotulos">  
+    CÓDIGO: <span id="cod"></span><br>  
+    DATA DA EMISSÃO: <span id="data"></span><br>  
+    ALUNO: <span id="aluno"></span><br>  
+    CPF: <span id="cpf"></span><br>  
+    RG: <span id="rg"></span><br>  
+    NACIONALIDADE: <span id="nacionalidade"></span><br>  
+    NATURAL: <span id="natural"></span><br>  
+    DATA DE NASCIMENTO: <span id="nascimento"></span><br>  
+    FILIAÇÃO: <span id="filiacao"></span><br>  
+    CURSO: <span id="curso"></span>  
+  </div>  
+
+  <!-- aviso acima da faixa inferior -->  
+  <div class="aviso">  
+    Para baixar seu certificado em PDF, clique no botão abaixo  
+  </div>  
+
+  <!-- nova faixa roxa colada em cima -->
+  <div class="faixa-baixo-top"></div>
+
+  <!-- faixa roxa inferior -->  
+  <div class="faixa-baixo"></div>  
+
+  <!-- botão Baixar Certificado -->  
+  <button id="downloadBtn" class="download-btn">  
+    <span>Baixar Certificado</span>  
+    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDE2TDEyIDRNMTIgNEwxNSA3TTEyIDRMOSA3TTUgMTRWNThIMTlWMTQiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Ícone Download">  
+  </button>  
+
+  <!-- script que vai preencher os dados -->  
+  <script src="preenche5.js"></script>  
+
+  <!-- script para download do PDF -->  
+  <script>  
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      // Nome do arquivo PDF que está na mesma pasta
+      const pdfUrl = 'certificado.pdf';
+      
+      // Método simples que funciona
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = 'certificado_ftec.pdf'; // Nome que aparecerá ao baixar
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>  
+</body>  
+</html>
